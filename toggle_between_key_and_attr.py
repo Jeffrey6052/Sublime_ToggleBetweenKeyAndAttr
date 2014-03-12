@@ -28,8 +28,6 @@ class ToggleBetweenKeyAndAttr(sublime_plugin.TextCommand):
 
   def run(self, edit):
     v = self.view
-    print v
-    print '1-----------------------------------'
     if v.sel()[0].size() == 0:
         v.run_command("expand_selection", {"to": "word"})
 
