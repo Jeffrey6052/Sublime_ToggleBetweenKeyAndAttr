@@ -28,6 +28,8 @@ class ToggleBetweenKeyAndAttr(sublime_plugin.TextCommand):
 
   def run(self, edit):
     v = self.view
+    print v
+    print '1-----------------------------------'
     if v.sel()[0].size() == 0:
         v.run_command("expand_selection", {"to": "word"})
 
@@ -39,14 +41,14 @@ class ToggleBetweenKeyAndAttr(sublime_plugin.TextCommand):
         res = self.matcher(text)
         
         if not res:
-          #first check one character to the left to see if its a symbol
+          #first check one character to the left to see if its a attr
           sel = Region(sel.begin() - 1, sel.end())
           text = v.substr(sel)
           res = self.matcher(text)
 
           if not res:
             #now expand selection one character to the right to see if its a string
-            sel = Region(sel.begin(), sel.end() + 1)
+            sel = Region(sel.begin() -1, sel.end() + 2)
             text = v.substr(sel)
             res = self.matcher(text)
 
@@ -62,3 +64,4 @@ class ToggleBetweenKeyAndAttr(sublime_plugin.TextCommand):
 # ['abc']
 # ["abc"]
 # .abc
+
