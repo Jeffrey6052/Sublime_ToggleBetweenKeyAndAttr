@@ -37,28 +37,29 @@ class ToggleBetweenKeyAndAttr(sublime_plugin.TextCommand):
     for sel in v.sel():
         text = v.substr(sel)
         res = self.matcher(text)
-        
+        tmp = sel
         if not res:
           #first check one character to the left to see if its a attr
-          sel = Region(sel.begin() - 1, sel.end())
-          text = v.substr(sel)
+          sel1 = Region(sel.begin() - 1, sel.end())
+          text = v.substr(sel1)
           res = self.matcher(text)
-
+          tmp = sel1
           if not res:
             #now expand selection one character to the right to see if its a string
-            sel = Region(sel.begin() - 1, sel.end() + 2 )
-            text = v.substr(sel)
+            sel2 = Region(sel.begin() - 2, sel.end() + 2)
+            text = v.substr(sel2)
             res = self.matcher(text)
-
+            tmp = sel2
             if not res:
               #this is a mute point
               continue
 
-        self.replacer(v, edit, sel, text, res)
+        self.replacer(v, edit, tmp, text, res)
 
     v.sel().clear()
+    v.sel().add(Region(cur_start, cur_end))
 
 # ['abc']
 # ["abc"]
-# .abc
+# ['abc']
 
