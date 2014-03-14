@@ -33,10 +33,6 @@ class ToggleBetweenKeyAndAttr(sublime_plugin.TextCommand):
     if v.sel()[0].size() == 0:
         v.run_command("expand_selection", {"to": "word"})
 
-    cur_start = v.sel()[0].begin()
-    cur_end = v.sel()[0].end()
-
-
     for sel in v.sel():
 
         cur_begin = sel.begin()
@@ -61,11 +57,10 @@ class ToggleBetweenKeyAndAttr(sublime_plugin.TextCommand):
 
         flag = self.replacer(v, edit, sel, text, res)
 
-        #sel.clear()
-        # if flag=='key':
-        #   sel.add(Region(cur_begin, cur_end))
-        # else :
-        #   sel.add(Region(cur_begin, cur_end))
+        if flag=='key':
+          sel = Region(cur_begin + 1, cur_end + 1)
+        else :
+          sel = Region(cur_begin - 1, cur_end - 1)
 
           
 # ['abc']
