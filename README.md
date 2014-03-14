@@ -11,9 +11,16 @@ A plugin useful for developers.
 Install
 -------
 
-Clone this repo into 
-    - OS X: ~/Library/Application Support/Sublime Text 2/Packages/
-    - Windows: %APPDATA%/Sublime Text 2/Packages/
-    - Linux: ~/.Sublime Text 2/Packages/
+1. install `Package Control`
+
+2. Package Control 'Add Repository'
+
+> https://github.com/maymay25/Sublime_ToggleBetweenKeyAndAttr
+
+3. Package Control 'Install Package', choose `Sublime_ToggleBetweenKeyAndAttr`
+
+
+yeah,happy coding:)
+
 
 
