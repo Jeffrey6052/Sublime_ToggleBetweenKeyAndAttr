@@ -20,13 +20,10 @@ class ToggleBetweenKeyAndAttr(sublime_plugin.TextCommand):
 
     if old_quotes == '.':
       text = '[\'' + text + '\']'
-      flag = 'key'
     else :
       text = '.' + text
-      flag = 'attr'
 
     v.replace(edit, sel, text)
-    return flag
 
 
   def run(self, edit):
@@ -35,9 +32,6 @@ class ToggleBetweenKeyAndAttr(sublime_plugin.TextCommand):
         v.run_command("expand_selection", {"to": "word"})
 
     for sel in v.sel():
-
-        cur_start = sel.begin()
-        cur_end = sel.end()
 
         text = v.substr(sel)
         res = self.matcher(text)
@@ -58,13 +52,11 @@ class ToggleBetweenKeyAndAttr(sublime_plugin.TextCommand):
               #this is a mute point
               continue
 
-        flag = self.replacer(v, edit, tmp, text, res)
-        
         sel.clear()
-        if flag == 'key':
-          sel.add(Region(cur_start+1, cur_end+1))
-        else :
-          sel.add(Region(cur_start-1, cur_end-1))
+        sel.add(Region(tmp.begin(), tmp.end()))
+        
+        flag = self.replacer(v, edit, tmp, text, res)
+
 # ['abc']
 # ["abc"]
 # .abc
