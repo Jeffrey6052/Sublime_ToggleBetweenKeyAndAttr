@@ -52,10 +52,9 @@ class ToggleBetweenKeyAndAttr(sublime_plugin.TextCommand):
               #this is a mute point
               continue
 
-        sel.clear()
         sel.add(Region(tmp.begin(), tmp.end()))
-        
-        flag = self.replacer(v, edit, tmp, text, res)
+
+        self.replacer(v, edit, tmp, text, res)
 
 # ['abc']
 # ["abc"]
