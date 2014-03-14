@@ -20,11 +20,13 @@ class ToggleBetweenKeyAndAttr(sublime_plugin.TextCommand):
 
     if old_quotes == '.':
       text = '[\'' + text + '\']'
+      flag = 'key'
     else :
       text = '.' + text
+      flag ='attr'
 
     v.replace(edit, sel, text)
-
+    return flag
 
   def run(self, edit):
     v = self.view
@@ -33,29 +35,35 @@ class ToggleBetweenKeyAndAttr(sublime_plugin.TextCommand):
 
     for sel in v.sel():
 
+        cur_begin = sel.begin()
+        cur_end = sel.end()
+
         text = v.substr(sel)
         res = self.matcher(text)
         tmp = sel
         if not res:
           #first check one character to the left to see if its a attr
-          sel1 = Region(sel.begin() - 1, sel.end())
-          text = v.substr(sel1)
+          sel = Region(cur_begin - 1, cur_end)
+          text = v.substr(sel)
           res = self.matcher(text)
-          tmp = sel1
           if not res:
             #now expand selection one character to the right to see if its a string
-            sel2 = Region(sel.begin() - 2, sel.end() + 2)
-            text = v.substr(sel2)
+            sel = Region(cur_begin - 2, cur_end + 2)
+            text = v.substr(sel)
             res = self.matcher(text)
-            tmp = sel2
             if not res:
               #this is a mute point
               continue
 
-        sel.add(Region(tmp.begin(), tmp.end()))
+        flag = self.replacer(v, edit, sel, text, res)
 
-        self.replacer(v, edit, tmp, text, res)
+        sel.clear()
+        if flag=='key':
+          sel.add(Region(cur_begin + 1, cur_end + 1))
+        else :
+          sel.add(Region(cur_begin - 1, cur_end - 1))
 
+          
 # ['abc']
 # ["abc"]
 # .abc
