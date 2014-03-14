@@ -57,7 +57,7 @@ class ToggleBetweenKeyAndAttr(sublime_plugin.TextCommand):
 
         flag = self.replacer(v, edit, sel, text, res)
 
-        # sel.clear()
+        sel.clear()
         # if flag=='key':
         #   sel.add(Region(cur_begin, cur_end))
         # else :
