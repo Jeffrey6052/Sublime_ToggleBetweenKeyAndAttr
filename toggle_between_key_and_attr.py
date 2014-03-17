@@ -6,7 +6,7 @@ from sublime import Region
 re_key = re.compile("^\[(['\"])(.*)\\1\]$")
 re_attr = re.compile("^(\.)(.*)$")
 
-class ToggleBetweenKeyAndAttr(sublime_plugin.TextCommand):
+class TogglebetweenkeyandattrCommand(sublime_plugin.TextCommand):
 
   def matcher(self,text):
     res = re_key.match(text)
@@ -29,15 +29,16 @@ class ToggleBetweenKeyAndAttr(sublime_plugin.TextCommand):
     return flag
 
   def run(self, edit):
+
     v = self.view
     if v.sel()[0].size() == 0:
         v.run_command("expand_selection", {"to": "word"})
 
-    flag = 'init'
-    rescue = 'init'
-
     ori_start = v.sel()[0].begin()
     ori_end = v.sel()[0].end()
+
+    flag = 'init'
+    rescue = 'init'
 
     for sel in v.sel():
 
@@ -69,16 +70,13 @@ class ToggleBetweenKeyAndAttr(sublime_plugin.TextCommand):
         if flag!=this_flag:
           rescue = 'rescue'
 
+    v.sel().clear()
     if rescue == 'rescue':
-      v.sel().clear()
+      v.sel()
     elif flag=='key':
-      v.sel().clear()
       v.sel().add(Region(ori_start + 1, ori_end + 1 ))
     elif flag=='attr':
-      v.sel().clear()
       v.sel().add(Region(ori_start - 1, ori_end - 1 ))
-    else :
-      # nothing
 
 # ['abc']
 # ["abc"]

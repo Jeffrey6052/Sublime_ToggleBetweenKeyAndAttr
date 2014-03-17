@@ -20,6 +20,13 @@ Install
 3. Package Control `Install Package`, choose `Sublime_ToggleBetweenKeyAndAttr`
 
 
+default binding key is: `ctrl+shift+.`
+
+if you want to set custom binding key, find `Preferences --> Key bindings - User` and add something like :
+
+> { "keys": ["ctrl+shift+."], "command": "togglebetweenkeyandattr" }
+
+
 yeah,happy coding:)
 
 
