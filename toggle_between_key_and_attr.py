@@ -70,12 +70,14 @@ class TogglebetweenkeyandattrCommand(sublime_plugin.TextCommand):
         if flag!=this_flag:
           rescue = 'rescue'
 
-    v.sel().clear()
+    
     if rescue == 'rescue':
-      v.sel()
+      v.sel().clear()
     elif flag=='key':
+      v.sel().clear()
       v.sel().add(Region(ori_start + 1, ori_end + 1 ))
     elif flag=='attr':
+      v.sel().clear()
       v.sel().add(Region(ori_start - 1, ori_end - 1 ))
 
 # ['abc']
