@@ -1,4 +1,4 @@
-Toggle Betwwen Key And Attr for Sublime Text 2
+Toggle Betwwen Key And Attr for Sublime Text 2 
 ================================
 
 A plugin useful for developers.
